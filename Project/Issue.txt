@@ -1,3 +1,5 @@
 TODO : Opening Image
 	Particle
 	Game Over map
+
+Shooter Tool : for make shooting map automatically
