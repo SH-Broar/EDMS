@@ -19,8 +19,21 @@ class shooter:
         self.type,self.color,self.x,self.y,self.angle,self.speed = type,color,x,y,angle,speed
 
     def update(self):
-        self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
-        self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+        if self.type == 1:
+            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            pass
+        elif self.type == 2:
+            self.speed += 10
+            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            pass
+        elif self.type == 3:
+
+            pass
+        elif self.type == 4:
+            pass
+
         if self.x < 0 or self.x > 1000 or self.y < 0 or self.y > 600:
             game_world.remove_object(self)
         pass
