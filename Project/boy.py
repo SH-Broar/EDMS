@@ -37,6 +37,9 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_DOWN): DOWN_DOWN,
 }
 
+def Tile_Which_Player_On(boy,i):
+    return (order-1) * 240 + (12 - i) * 20 + boy.playerOnX-1
+
 
 # Boy States
 
@@ -53,10 +56,10 @@ class IdleState:
                 game_world.remove_object(boy)
                 #gameover branch - state change
                 pass
-            if Mapper[(order-1) * 240 + (12 - boy.playerOnY) * 20 + boy.playerOnX-1] == 0:
+            if Mapper[Tile_Which_Player_On(boy,boy.playerOnY)] == 0:
                 track = False
                 for i in range(1,boy.playerOnY):
-                    if Mapper[(order-1) * 240 + (12 - i) * 20 + boy.playerOnX-1] != 0:
+                    if Mapper[Tile_Which_Player_On(boy,i)] != 0:
                         boy.y = i * 50
                         track = True
                 if track is False:
