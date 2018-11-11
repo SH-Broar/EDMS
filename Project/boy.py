@@ -78,7 +78,7 @@ class IdleState:
         if boy.frame >= 180:
             boy.frame = boy.frame % 180
             boy.cur_state.enter(boy, Recursion)
-        if (boy.keyDown == True):
+        if boy.keyDown:
             boy.CtrlDown = 3
         else:
             boy.CtrlDown = 1
@@ -87,7 +87,7 @@ class IdleState:
     @staticmethod
     def draw(boy):
         boy.image.rotate_draw(boy.angle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 50, 50)
-        if (boy.keyDown == True):
+        if boy.keyDown:
             boy.power.rotate_draw(-boy.frame* 3.14 / 360,boy.x, boy.y + boy.jumpHeight, 120, 120)
 
 
@@ -117,7 +117,7 @@ class RunState:
 
         elif event == RIGHT_DOWN:
             if boy.jumpHeight <= 30:
-                if (boy.keyDown == True):
+                if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
                     boy.CtrlDown = 1
@@ -129,7 +129,7 @@ class RunState:
                 boy.cur_state.enter(boy, TimeUp)
         elif event == LEFT_DOWN:
             if boy.jumpHeight <= 30:
-                if boy.keyDown == True:
+                if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
                     boy.CtrlDown = 1
@@ -141,7 +141,7 @@ class RunState:
                 boy.cur_state.enter(boy, TimeUp)
         elif event == UP_DOWN:
             if boy.jumpHeight <= 30:
-                if boy.keyDown == True:
+                if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
                     boy.CtrlDown = 1
@@ -153,7 +153,7 @@ class RunState:
                 boy.cur_state.enter(boy, TimeUp)
         elif event == DOWN_DOWN:
             if boy.jumpHeight <= 30:
-                if boy.keyDown == True:
+                if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
                     boy.CtrlDown = 1
@@ -205,7 +205,7 @@ class RunState:
     @staticmethod
     def draw(boy):
         boy.image.rotate_draw(boy.angle * 3.14 / 180, boy.x, boy.y + boy.jumpHeight, 50, 50)
-        if (boy.keyDown == True):
+        if boy.keyDown:
             boy.power.rotate_draw(-boy.bangle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 120, 120)
 
 
