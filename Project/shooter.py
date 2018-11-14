@@ -29,7 +29,11 @@ class shooter:
             self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
             pass
         elif self.type == 3:
-
+            self.speed -= 4
+            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            if (self.speed < 0):
+                self.angle *= -1
             pass
         elif self.type == 4:
             pass
