@@ -36,6 +36,11 @@ class shooter:
                 self.angle *= -1
             pass
         elif self.type == 4:
+            self.speed -= 10
+            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+            if (self.speed < 0):
+                game_world.remove_object(self)
             pass
 
         if self.x < 0 or self.x > 1000 or self.y < 0 or self.y > 600:

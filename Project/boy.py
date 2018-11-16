@@ -231,7 +231,8 @@ class Boy:
         self.dir = 0
         self.velocity = 0
         #
-        self.MusicBpm = 126
+        self.MusicBpm = 205
+        self.C = 0
         #
         self.keyDown = False
         self.teleportDir = 0
@@ -255,12 +256,15 @@ class Boy:
         self.event_que.insert(0, event)
 
     def update(self):
+        self.C += 10*game_framework.frame_time
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
+        if self.C > 603: # 1분 0.3초
+            self.MusicBpm = 206
 
     def draw(self):
         self.cur_state.draw(self)
