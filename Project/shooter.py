@@ -2,6 +2,13 @@ from pico2d import *
 import game_framework
 import game_world
 import math
+import main_state
+
+def BasicShooter(self, x):
+    if x is 'x':
+        return math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time *main_state.by.MusicBpm
+    else:
+        return math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time *main_state.by.MusicBpm
 
 class shooter:
     image = None
@@ -16,31 +23,40 @@ class shooter:
         self.y = 0
         self.angle = 0
         self.speed = 0
-        self.type,self.color,self.x,self.y,self.angle,self.speed = type,color,x,y,angle,speed
+        self.type,self.color,self.x,self.y,self.angle,self.speed = type,color,x,y,angle,speed / 10
 
     def update(self):
-        if self.type == 1:
-            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
-            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+        if self.type == 1: #직선
+            self.x += BasicShooter(self,'x')
+            self.y += BasicShooter(self,'y')
             pass
-        elif self.type == 2:
-            self.speed += 2
-            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
-            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+        elif self.type == 2: #가속
+            self.speed += 3 * game_framework.frame_time
+            self.x += BasicShooter(self, 'x')
+            self.y += BasicShooter(self, 'y')
             pass
-        elif self.type == 3:
-            self.speed -= 4
-            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
-            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
-            if (self.speed < 0):
-                self.angle *= -1
+        elif self.type == 3: #회전
+            self.speed += 3 * game_framework.frame_time
+            self.x += BasicShooter(self, 'x')
+            self.y += BasicShooter(self, 'y')
+            self.x += math.cos((self.angle + 45) * 3.14 / 180) * 0.7 * game_framework.frame_time
+            self.y += math.sin((self.angle + 45) * 3.14 / 180) * 0.7 * game_framework.frame_time
+            self.angle += 180 * game_framework.frame_time
             pass
-        elif self.type == 4:
-            self.speed -= 10
-            self.x += math.cos(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
-            self.y += math.sin(self.angle * 3.14 / 180) * self.speed * game_framework.frame_time
+        elif self.type == 4: #폭죽
+            self.speed -= 5 * game_framework.frame_time
+            self.x += BasicShooter(self, 'x')
+            self.y += BasicShooter(self, 'y')
             if (self.speed < 0):
                 game_world.remove_object(self)
+        elif self.type == 5:  #후진
+            self.speed -= 3 * game_framework.frame_time
+            self.x += BasicShooter(self, 'x')
+            self.y += BasicShooter(self, 'y')
+        elif self.type == 6:  # ?
+            self.speed -= 5 * game_framework.frame_time
+            self.x += BasicShooter(self, 'x')
+            self.y += BasicShooter(self, 'y')
             pass
 
         if self.x < 0 or self.x > 1000 or self.y < 0 or self.y > 600:
