@@ -116,7 +116,7 @@ class RunState:
                 pass
 
         elif event == RIGHT_DOWN:
-            if boy.jumpHeight <= 30:
+            if boy.jumpHeight <= 40:
                 if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
@@ -128,7 +128,7 @@ class RunState:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
         elif event == LEFT_DOWN:
-            if boy.jumpHeight <= 30:
+            if boy.jumpHeight <= 40:
                 if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
@@ -140,7 +140,7 @@ class RunState:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
         elif event == UP_DOWN:
-            if boy.jumpHeight <= 30:
+            if boy.jumpHeight <= 40:
                 if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
@@ -152,11 +152,11 @@ class RunState:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
         elif event == DOWN_DOWN:
-            if boy.jumpHeight <= 30:
+            if boy.jumpHeight <= 40:
                 if boy.keyDown:
                     boy.CtrlDown = 3
                 else:
-                    boy.CtrlDown = 1
+                    boy.CtrlDown = 10
                 boy.dir = -2
                 boy.bangle = 0
                 boy.exY = boy.y
