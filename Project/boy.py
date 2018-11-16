@@ -74,7 +74,7 @@ class IdleState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame+(180*(boy.MusicBpm/60)*game_framework.frame_time))
-        boy.jumpHeight = math.sin(boy.frame * 3.14 / 180) * 100
+        boy.jumpHeight = math.sin(boy.frame * 3.14 / 180) * 90
         if boy.frame >= 180:
             boy.frame = boy.frame % 180
             boy.cur_state.enter(boy, Recursion)
@@ -178,7 +178,7 @@ class RunState:
         if boy.frame >= 180:
             boy.frame = boy.frame % 180
             boy.cur_state.enter(boy, Recursion)
-        boy.jumpHeight = math.sin(boy.frame * 3.14 / 180) * 100
+        boy.jumpHeight = math.sin(boy.frame * 3.14 / 180) * 90
 
         if boy.bangle > 90 and boy.bangle < 270: # end
         #{
@@ -219,11 +219,11 @@ next_state_table = {
 class Boy:
 
     def __init__(self):
-        self.x, self.y = 25, 60
+        self.x, self.y = 25 + 9*50, 60 + 5*50
         self.exX = 0
         self.exY = 0
-        self.playerOnX = 0
-        self.playerOnY = 0
+        self.playerOnX = 9
+        self.playerOnY = 5
         self.image = load_image('Player\\player.png')
         self.power = load_image('Player\\power.png')
         # Boy is only once created, so instance image loading is fine
@@ -231,7 +231,7 @@ class Boy:
         self.dir = 0
         self.velocity = 0
         #
-        self.MusicBpm = 205
+        self.MusicBpm = 0
         self.C = 0
         #
         self.keyDown = False
@@ -263,8 +263,42 @@ class Boy:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
-        if self.C > 603: # 1분 0.3초
+
+        if self.C > 8.7:
+            self.MusicBpm = 204.9
+        if self.C > 11.7:
+            self.MusicBpm = 102.4
+        if self.C > 105.3:
+            self.MusicBpm = 204.8
+
+        if self.C > 175.6:
+            self.MusicBpm = 102.4
+        if self.C > 199.0:
+            self.MusicBpm = 204.8
+
+        if self.C > 421.4:
+            self.MusicBpm = 102.4
+        if self.C > 433.1:
+            self.MusicBpm = 204.8
+
+        if self.C > 573.6:
+            self.MusicBpm = 102.4
+        if self.C > 608.7:   # 1분 0.87초
+            self.MusicBpm = 103
+        if self.C > 620.4:
             self.MusicBpm = 206
+
+        if self.C > 900.8:
+            self.MusicBpm = 154.5
+        if self.C > 917.6:
+            self.MusicBpm = 206
+        if self.C > 923.7:
+            self.MusicBpm = 154.5
+        if self.C > 941.2:
+            self.MusicBpm = 206
+
+        if self.C > 1156.6:
+            self.MusicBpm = 103
 
     def draw(self):
         self.cur_state.draw(self)
