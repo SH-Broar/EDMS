@@ -288,9 +288,9 @@ class Boy:
         if self.C > 620.4:
             self.MusicBpm = 206
 
-        if self.C > 900.8:
+        if self.C > 900.0:
             self.MusicBpm = 154.5
-        if self.C > 917.6:
+        if self.C > 917.4:
             self.MusicBpm = 206
         if self.C > 923.7:
             self.MusicBpm = 154.5
