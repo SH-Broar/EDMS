@@ -265,7 +265,7 @@ class Boy:
             self.cur_state.enter(self, event)
 
         if self.C > 8.7:
-            self.MusicBpm = 204.9
+            self.MusicBpm = 204.8
         if self.C > 11.7:
             self.MusicBpm = 102.4
         if self.C > 105.3:
@@ -282,7 +282,7 @@ class Boy:
             self.MusicBpm = 204.8
 
         if self.C > 573.6:
-            self.MusicBpm = 102.4
+            self.MusicBpm = 102.5
         if self.C > 608.7:   # 1분 0.87초
             self.MusicBpm = 103
         if self.C > 620.4:
