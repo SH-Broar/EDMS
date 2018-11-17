@@ -13,7 +13,7 @@ def BasicShooter(self, x):
 class shooter:
     image = None
 
-    def __init__(self,type = 0,color = 0, x = 100, y = 100, angle = 0, speed = 1):
+    def __init__(self,type = 0,color = 0, x = 100, y = 100, angle = 0, speed = 1, loop = 0):
 
         if shooter.image is None:
             shooter.image = load_image('Shooter\\Shooter atl.png')
@@ -22,8 +22,9 @@ class shooter:
         self.x = 0
         self.y = 0
         self.angle = 0
-        self.speed = 0
-        self.type,self.color,self.x,self.y,self.angle,self.speed = type,color,x,y,angle,speed / 10
+        self.speed = 1
+        self.loop = 0
+        self.type,self.color,self.x,self.y,self.angle,self.speed,self.loop = type,color,x,y,angle,speed / 10,loop
 
     def update(self):
         if self.type == 1: #직선
@@ -50,11 +51,10 @@ class shooter:
             if (self.speed < 0):
                 game_world.remove_object(self)
         elif self.type == 5:  #후진
-            self.speed -= 3 * game_framework.frame_time
+            self.speed -= 2 * game_framework.frame_time
             self.x += BasicShooter(self, 'x')
             self.y += BasicShooter(self, 'y')
-        elif self.type == 6:  # ?
-            self.speed -= 5 * game_framework.frame_time
+        elif self.type == 6:  # 직선
             self.x += BasicShooter(self, 'x')
             self.y += BasicShooter(self, 'y')
             pass

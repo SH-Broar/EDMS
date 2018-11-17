@@ -17,7 +17,7 @@ by = None
 BGM = None
 TimeCut = []
 
-bulletDict = [[],[],[],[],[],[]]
+bulletDict = [[],[],[],[],[],[],[]]
 bulletTime = []
 bulletTimeIndex = 0
 
@@ -57,13 +57,13 @@ def bulletRegister():
         b = A[line].split()
         for text in b:
             if text == '//':
-                continue
-            if i == 6:
-                bulletTime.append(int(text))
+                pass
+            elif i == 7:
+                bulletTime.append(float(text))
                 i = 0
-                continue
-            bulletDict[i].append(int(text))
-            i = i + 1
+            else:
+                bulletDict[i].append(int(text))
+                i = i + 1
     pass
 
 
@@ -103,14 +103,18 @@ def MakeMap():
                 game_world.add_object(tile, 1)
                 xl += 1
 
+def SpreadAngle(i):
+    return (360/bulletDict[6][bulletTimeIndex]) * i
+
 def SpreadBullet():
     global bulletTimeIndex, bulletTime, bulletDict
     if get_time() - EnterTime < bulletTime[bulletTimeIndex]:
         pass
     else:
-        bullets = shooter(bulletDict[0][bulletTimeIndex],bulletDict[1][bulletTimeIndex],bulletDict[2][bulletTimeIndex],bulletDict[3][bulletTimeIndex],bulletDict[4][bulletTimeIndex],bulletDict[5][bulletTimeIndex])
+        for i in range(bulletDict[6][bulletTimeIndex]):
+            bullets = shooter(bulletDict[0][bulletTimeIndex],bulletDict[1][bulletTimeIndex],bulletDict[2][bulletTimeIndex],bulletDict[3][bulletTimeIndex],bulletDict[4][bulletTimeIndex] + SpreadAngle(i),bulletDict[5][bulletTimeIndex])
+            game_world.add_object(bullets, 3)
         bulletTimeIndex += 1
-        game_world.add_object(bullets, 3)
     pass
 
 def exit():
