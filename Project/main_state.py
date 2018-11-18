@@ -15,6 +15,7 @@ name = "MainState"
 
 by = None
 BGM = None
+metronom = None
 TimeCut = []
 
 bulletDict = [[],[],[],[],[],[],[]]
@@ -29,12 +30,25 @@ class Stage1_Bgm:
         self.bgm.set_volume(128)
         self.bgm.repeat_play()
 
+class Metro:
+    def __init__(self):
+        self.image = load_image('Background\\shin.png')
+
+    def update(self):
+        self.image.opacify(clamp(0,(90 - by.jumpHeight) / 112.5,0.8))
+        pass
+
+    def draw(self):
+        self.image.draw(500, 300)
+
 def enter():
-    global by, BGM, EnterTime
+    global by, BGM, metronom, EnterTime
     by = boy.Boy()
     grass = Grass()
+    metronom = Metro()
     game_world.add_object(grass, 0)
     game_world.add_object(by, 2)
+    game_world.add_object(metronom,4)
     EnterTime = get_time()
     mapper()
     bulletRegister()

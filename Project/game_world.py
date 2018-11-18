@@ -3,7 +3,7 @@
 # layer 1: tiles
 # layer 2: Player
 # layer 3: bullets
-objects = [[],[],[],[]]
+objects = [[],[],[],[],[]]
 
 
 def add_object(o, layer):
