@@ -7,6 +7,7 @@ import game_framework
 import game_world
 
 import boy
+import BulletManager
 from shooter import shooter
 from grass import Grass
 from Blocks import Blocks
@@ -150,21 +151,29 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_framework.quit()
+            game_framework.quit()
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            BulletManager.BM.clicked()
+        elif event.type == SDL_MOUSEBUTTONUP:
+            BulletManager.BM.deClicked()
         else:
             by.handle_event(event)
 
 
 def update():
-    MakeMap()
-    SpreadBullet()
-    for game_object in game_world.all_objects():
-        game_object.update()
-    for game_object in game_world.object_in_line(3):
-        if game_world.collide(game_object,by) == True:
-            game_world.remove_object(game_object)
-            #game over branch
-            pass
+    if BulletManager.stoped:
+
+        pass
+    else:
+        MakeMap()
+        SpreadBullet()
+        for game_object in game_world.all_objects():
+            game_object.update()
+        for game_object in game_world.object_in_line(3):
+            if game_world.collide(game_object,by) == True:
+                game_world.remove_object(game_object)
+                #game over branch
+                pass
 
 
 

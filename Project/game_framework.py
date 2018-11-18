@@ -9,7 +9,6 @@ class GameState:
         self.draw = state.draw
 
 
-
 class TestGameState:
 
     def __init__(self, name):
@@ -53,14 +52,12 @@ def change_state(state):
     state.enter()
 
 
-
 def push_state(state):
     global stack
     if (len(stack) > 0):
         stack[-1].pause()
     stack.append(state)
     state.enter()
-
 
 
 def pop_state():
@@ -74,7 +71,6 @@ def pop_state():
     # execute resume function of the previous state
     if (len(stack) > 0):
         stack[-1].resume()
-
 
 
 def quit():
