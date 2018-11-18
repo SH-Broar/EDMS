@@ -12,6 +12,8 @@ bullets = None
 preMx, preMy = 0,0
 income = 0
 
+tmpList = [[],[],[],[],[],[],[],[]]
+
 class BM:
     def __init__(self):
         pass
@@ -69,23 +71,61 @@ class BM:
         elif num == SDLK_9:
             income += 9
 
-
+    @staticmethod
+    def fileDecoder():
+        global tmpList
+        input = open("shooter\\bullet.txt", "rt")
+        A = []
+        LineOfFile = 0
+        i = 0
+        for line in input:
+            A.append(line.strip())
+            LineOfFile += 1
+        input.close()
+        for line in range(LineOfFile):
+            b = A[line].split()
+            for text in b:
+                if text == '//':
+                    pass
+                tmpList[i].append(float(text))
+                i = i + 1
+                i %= 8
 
     @staticmethod
     def deClicked(mx,my):
-        global stoped, inTime,income
+        global stoped, inTime,income, tmpList
         if income == 0:
             income = 1
+        BM.fileDecoder()
+
+        main_state.EnterTime += get_time() - inTime
+
         for i in range(1,income):
             if (mx > preMx):
                 bullets = shooter(2, 1, preMx, preMy,
-                                  math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + (360/income)*i, 0, 6)
+                                  math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + (360/income)*i, math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100), 0)
+                tmpList[0].append(2)
+                tmpList[1].append(1)
+                tmpList[2].append(preMx)
+                tmpList[3].append(preMy)
+                tmpList[4].append(math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + (360/income)*i)
+                tmpList[5].append(math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100))
+                tmpList[6].append(income)
+                tmpList[7].append(main_state.get_time() - main_state.EnterTime)
             else:
                 bullets = shooter(2, 1, preMx, preMy,
-                                  math.atan((preMy - my) / (clamp(0.1, preMx - mx, 2100000))) * 180 / 3.14 + 180 + (360/income)*i, 0, 6)
+                                  math.atan((preMy - my) / (clamp(0.1, preMx - mx, 2100000))) * 180 / 3.14 + 180 + (360/income)*i, math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100), 0)
+                tmpList[0].append(2)
+                tmpList[1].append(1)
+                tmpList[2].append(preMx)
+                tmpList[3].append(preMy)
+                tmpList[4].append(
+                    math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + 180 + (360 / income) * i)
+                tmpList[5].append(math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100))
+                tmpList[6].append(income)
+                tmpList[7].append(main_state.get_time() - main_state.EnterTime)
             game_world.add_object(bullets,3)
         stoped = False
-        main_state.EnterTime += get_time() - inTime
         main_state.BGM.bgm.resume()
 
         pass
