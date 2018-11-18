@@ -53,7 +53,7 @@ class IdleState:
             boy.playerOnX = int((boy.x + 50) // 50)
             boy.playerOnY = int((boy.y + 25) // 50)
             if boy.playerOnX <= 0 or boy.playerOnX >= 21 or boy.playerOnY <= 0 or boy.playerOnY >= 13:
-                game_world.remove_object(boy)
+                #game_world.remove_object(boy)
                 #gameover branch - state change
                 pass
             if Mapper[Tile_Which_Player_On(boy,boy.playerOnY)] == 0:
@@ -63,7 +63,7 @@ class IdleState:
                         boy.y = i * 50
                         track = True
                 if track is False:
-                    game_world.remove_object(boy)
+                    #game_world.remove_object(boy)
                     #gameover branch
                     pass
 
@@ -99,7 +99,7 @@ class RunState:
         boy.playerOnX = int((boy.x + 50) // 50)
         boy.playerOnY = int((boy.y + 25) // 50)
         if boy.playerOnX <= 0 or boy.playerOnX >= 21 or boy.playerOnY <= 0 or boy.playerOnY >= 13:
-            game_world.remove_object(boy)
+            #game_world.remove_object(boy)
             # gameover branch - state change
             pass
         if Mapper[(order-1) * 240 + (12 - boy.playerOnY) * 20 + boy.playerOnX-1] == 0:
@@ -111,7 +111,7 @@ class RunState:
                     boy.cur_state.enter(boy, IdleState)
                     track = True
             if track is False:
-                game_world.remove_object(boy)
+                #game_world.remove_object(boy)
                 #gameover branch
                 pass
 
@@ -308,7 +308,19 @@ class Boy:
         return self.x - 25, self.y - 25 + self.jumpHeight, self.x + 25, self.y + 25 + self.jumpHeight
 
     def handle_event(self, event):
-        if (event.type, event.key) in key_event_table:
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_RIGHT):
+            self.cur_state = RunState
+            self.cur_state.enter(self, RIGHT_DOWN)
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_LEFT):
+            self.cur_state = RunState
+            self.cur_state.enter(self, LEFT_DOWN)
+        elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_UP):
+            self.cur_state = RunState
+            self.cur_state.enter(self, UP_DOWN)
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_DOWN):
+            self.cur_state = RunState
+            self.cur_state.enter(self, DOWN_DOWN)
+        elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_LCTRL):
