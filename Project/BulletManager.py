@@ -10,6 +10,7 @@ inTime = 0
 bullets = None
 
 preMx, preMy = 0,0
+income = 1
 
 class BM:
     def __init__(self):
@@ -37,9 +38,17 @@ class BM:
         else:
             bullets = shooter(2, 1, preMx, preMy,
                               math.atan((preMy-my) / (clamp(0.1, preMx-mx, 2100000))) * 180 / 3.14 + 180, 0, 6)
-
         game_world.add_object(bullets, 3)
         pass
+
+    @staticmethod
+    def numDown(num):
+        global income
+        if num == -1:
+            income = 1
+            return
+        income *= 10
+        income += num
 
     @staticmethod
     def deClicked(mx,my):
