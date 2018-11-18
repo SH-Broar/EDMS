@@ -153,9 +153,11 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            BulletManager.BM.clicked()
+            BulletManager.BM.clicked(event.x, 600-event.y)
         elif event.type == SDL_MOUSEBUTTONUP:
-            BulletManager.BM.deClicked()
+            BulletManager.BM.deClicked(event.x, 600-event.y)
+        elif event.type == SDL_MOUSEMOTION and BulletManager.stoped:
+            BulletManager.BM.draged(event.x, 600-event.y)
         else:
             by.handle_event(event)
 
