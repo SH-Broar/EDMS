@@ -22,6 +22,11 @@ def remove_object_by_line(num):
         objects[num].remove(i)
         del i
 
+def remove_inturrepted_bullet():
+    i = objects[3][-1]
+    objects[3].remove(i)
+    del i
+
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -40,7 +45,7 @@ def clear():
     for o in all_objects():
         del o
     objects.clear()
-    objects = [[],[],[],[]]
+    objects = [[],[],[],[],[]]
 
 
 def all_objects():
