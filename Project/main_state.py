@@ -158,9 +158,10 @@ def handle_events():
             BulletManager.BM.deClicked(event.x, 600-event.y)
         elif event.type == SDL_MOUSEMOTION and BulletManager.stoped:
             BulletManager.BM.draged(event.x, 600-event.y)
-        elif event.type == SDL_KEYDOWN and (event.key == SDLK_0 or event.key == SDLK_2 or event.key == SDLK_3
+        elif event.type == SDL_KEYDOWN and (event.key == SDLK_0 or event.key == SDLK_1 or event.key == SDLK_2 or event.key == SDLK_3
                                             or event.key == SDLK_4 or event.key == SDLK_5 or event.key == SDLK_6
                                             or event.key == SDLK_7 or event.key == SDLK_8 or event.key == SDLK_9):
+            BulletManager.BM.numDown(event.key)
             pass
         else:
             by.handle_event(event)
