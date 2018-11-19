@@ -8,11 +8,24 @@ import math
 stoped = False
 inTime = 0
 bullets = None
+Hold = False
 
 preMx, preMy = 0,0
 income = 0
 
 tmpList = [[],[],[],[],[],[],[],[]]
+
+def angle(mx,my):
+    global preMx,preMy
+    return math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14
+
+def R_angle(mx,my):
+    global preMx, preMy
+    return math.atan((preMy - my) / (clamp(0.1, preMx - mx, 2100000))) * 180 / 3.14 + 180
+
+def speed(mx,my):
+    global preMx, preMy
+    return math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2)) / 10
 
 class BM:
     def __init__(self):
@@ -23,23 +36,22 @@ class BM:
         global stoped, inTime, bullets, preMx,preMy
         preMx = mx
         preMy = my
-        stoped = True
-        inTime = get_time()
-        main_state.BGM.bgm.pause()
+        if (Hold == False):
+            stoped = True
+            inTime = get_time()
+            main_state.BGM.bgm.pause()
         bullets = shooter(2, 1, preMx, preMy, 0, 0, 6)
         game_world.add_object(bullets,3)
         pass
 
     @staticmethod
     def draged(mx,my):
-        global bullets
+        global bullets,preMx,preMy
         game_world.remove_inturrepted_bullet()
         if (mx > preMx):
-            bullets = shooter(2, 1, preMx, preMy,
-                              math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14, 0, 6)
+            bullets = shooter(2, 1, preMx, preMy,angle(mx,my), speed(mx,my), 6)
         else:
-            bullets = shooter(2, 1, preMx, preMy,
-                              math.atan((preMy-my) / (clamp(0.1, preMx-mx, 2100000))) * 180 / 3.14 + 180, 0, 6)
+            bullets = shooter(2, 1, preMx, preMy,R_angle(mx, my), speed(mx, my), 6)
         game_world.add_object(bullets, 3)
         pass
 
@@ -74,58 +86,58 @@ class BM:
     @staticmethod
     def fileDecoder():
         global tmpList
-        input = open("shooter\\bullet.txt", "rt")
-        A = []
-        LineOfFile = 0
-        i = 0
-        for line in input:
-            A.append(line.strip())
-            LineOfFile += 1
-        input.close()
-        for line in range(LineOfFile):
-            b = A[line].split()
-            for text in b:
-                if text == '//':
-                    pass
-                tmpList[i].append(float(text))
-                i = i + 1
-                i %= 8
+        if tmpList == [[],[],[],[],[],[],[],[]]:
+            input = open("shooter\\bullet.txt", "rt")
+            A = []
+            LineOfFile = 0
+            i = 0
+            for line in input:
+                A.append(line.strip())
+                LineOfFile += 1
+            input.close()
+            for line in range(LineOfFile):
+                b = A[line].split()
+                for text in b:
+                    if text == '//':
+                        pass
+                    tmpList[i].append(float(text))
+                    i = i + 1
+                    i %= 8
 
     @staticmethod
     def deClicked(mx,my):
-        global stoped, inTime,income, tmpList
+        global stoped, inTime,income, tmpList, preMx,preMy, Hold
         if income == 0:
             income = 1
         BM.fileDecoder()
 
-        main_state.EnterTime += get_time() - inTime
+        if (Hold is False):
+            main_state.EnterTime += (get_time() - inTime)
 
         for i in range(1,income):
             if (mx > preMx):
                 bullets = shooter(2, 1, preMx, preMy,
-                                  math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + (360/income)*i, math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100), 0)
+                                  angle(mx, my) + (360/income)*i, speed(mx, my), 0)
                 tmpList[0].append(2)
                 tmpList[1].append(1)
                 tmpList[2].append(preMx)
                 tmpList[3].append(preMy)
-                tmpList[4].append(math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + (360/income)*i)
-                tmpList[5].append(math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100))
+                tmpList[4].append(angle(mx,my) + (360/income)*i)
+                tmpList[5].append(speed(mx,my))
                 tmpList[6].append(income)
                 tmpList[7].append(main_state.get_time() - main_state.EnterTime)
             else:
-                bullets = shooter(2, 1, preMx, preMy,
-                                  math.atan((preMy - my) / (clamp(0.1, preMx - mx, 2100000))) * 180 / 3.14 + 180 + (360/income)*i, math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100), 0)
+                bullets = shooter(2, 1, preMx, preMy, R_angle(mx, my) + (360/income)*i, speed(mx, my), 0)
                 tmpList[0].append(2)
                 tmpList[1].append(1)
                 tmpList[2].append(preMx)
                 tmpList[3].append(preMy)
-                tmpList[4].append(
-                    math.atan((my - preMy) / (clamp(0.1, mx - preMx, 2100000))) * 180 / 3.14 + 180 + (360 / income) * i)
-                tmpList[5].append(math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2) / 100))
+                tmpList[4].append(R_angle(mx, my) + (360/income)*i)
+                tmpList[5].append(speed(mx,my))
                 tmpList[6].append(income)
                 tmpList[7].append(main_state.get_time() - main_state.EnterTime)
             game_world.add_object(bullets,3)
-        stoped = False
-        main_state.BGM.bgm.resume()
-
+        if (Hold == False):
+            stoped = False
+            main_state.BGM.bgm.resume()
         pass
