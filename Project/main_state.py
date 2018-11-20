@@ -167,7 +167,8 @@ def handle_events():
                                             or event.key == SDLK_7 or event.key == SDLK_8 or event.key == SDLK_9
                                             or event.key == SDLK_BACKSPACE):
             BulletManager.BM.numDown(event.key)
-            pass
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_s:
+            BulletManager.saveBulletList()
         else:
             by.handle_event(event)
 

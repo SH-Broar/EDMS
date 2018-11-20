@@ -14,6 +14,7 @@ preMx, preMy = 0,0
 income = 0
 
 tmpList = [[],[],[],[],[],[],[],[]]
+saveString = ''
 
 def angle(mx,my):
     global preMx,preMy
@@ -26,6 +27,16 @@ def R_angle(mx,my):
 def speed(mx,my):
     global preMx, preMy
     return math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2)) / 10
+
+def saveBulletList():
+    global tmpList, saveString
+    output = open("shooter\\save.txt",'w')
+    for i in range(len(tmpList[0])):
+        saveString = str(tmpList[0][i]) +" "+ str(tmpList[1][i]) +" "+ str(tmpList[2][i]) +" "+ str(tmpList[3][i]) +" "+ str(tmpList[4][i]) +" "+ str(tmpList[5][i]) +" "+ str(tmpList[6][i]) +" "+ str(tmpList[7][i])
+        output.write(saveString)
+        output.write('\n')
+    output.close()
+    pass
 
 class BM:
     def __init__(self):
