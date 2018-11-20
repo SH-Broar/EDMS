@@ -140,7 +140,7 @@ class BM:
                     tmpList[4].append(int(angle(mx,my) + (360/income)*i))
                     tmpList[5].append(int(speed(mx,my)))
                     tmpList[6].append(income)
-                    tmpList[7].append(main_state.get_time() - main_state.EnterTime)
+                    tmpList[7].append(inTime)
             else:
                 bullets = shooter(2, 1, preMx, preMy, R_angle(mx, my) + (360/income)*i, speed(mx, my), 0)
                 if (i == 0):
@@ -151,7 +151,7 @@ class BM:
                     tmpList[4].append(int(R_angle(mx, my) + (360/income)*i))
                     tmpList[5].append(int(speed(mx, my)))
                     tmpList[6].append(income)
-                    tmpList[7].append(main_state.get_time() - main_state.EnterTime)
+                    tmpList[7].append(inTime)
             game_world.add_object(bullets,3)
         if (Hold == False):
             stoped = False
