@@ -28,9 +28,33 @@ def speed(mx,my):
     global preMx, preMy
     return math.sqrt(pow(preMx-mx,2)+pow(preMy-my,2)) / 10
 
+def change(maxIndex, num):
+    global tmpList
+    for i in range(8):
+        tmpList[i][maxIndex],tmpList[i][num] = tmpList[i][num],tmpList[i][maxIndex]
+
+def BulletListSorting():
+    global tmpList
+    num = len(tmpList[7]) - 1
+    for k in range(len(tmpList[7])):
+        max = -1
+        maxIndex = 0
+        for i in range(num+1):
+            if max < tmpList[7][i]:
+                max = tmpList[7][i]
+                maxIndex = i
+                print(i)
+        change(maxIndex, num)
+        num -= 1
+    pass
+
 def saveBulletList():
     global tmpList, saveString
+
+    BulletListSorting()
+    print(tmpList)
     output = open("shooter\\save.txt",'w')
+
     for i in range(len(tmpList[0])):
         saveString = str(tmpList[0][i]) +" "+ str(tmpList[1][i]) +" "+ str(tmpList[2][i]) +" "+ str(tmpList[3][i]) +" "+ str(tmpList[4][i]) +" "+ str(tmpList[5][i]) +" "+ str(tmpList[6][i]) +" "+ str(tmpList[7][i])
         output.write(saveString)
