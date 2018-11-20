@@ -299,6 +299,10 @@ class Boy:
 
         if self.C > 1156.6:
             self.MusicBpm = 103
+        if self.C > 1220:
+            #game clear branch
+            pass
+
 
     def draw(self):
         self.cur_state.draw(self)
