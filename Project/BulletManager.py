@@ -43,7 +43,6 @@ def BulletListSorting():
             if max < tmpList[7][i]:
                 max = tmpList[7][i]
                 maxIndex = i
-                print(i)
         change(maxIndex, num)
         num -= 1
     pass
@@ -52,7 +51,6 @@ def saveBulletList():
     global tmpList, saveString
 
     BulletListSorting()
-    print(tmpList)
     output = open("shooter\\save.txt",'w')
 
     for i in range(len(tmpList[0])):
