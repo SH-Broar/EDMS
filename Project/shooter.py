@@ -30,12 +30,12 @@ class shooter:
         if self.type == 1: #직선
             self.x += BasicShooter(self,'x')
             self.y += BasicShooter(self,'y')
-            pass
+
         elif self.type == 2: #가속
             self.speed += 3 * game_framework.frame_time
             self.x += BasicShooter(self, 'x')
             self.y += BasicShooter(self, 'y')
-            pass
+
         elif self.type == 3: #회전
             self.speed += 3 * game_framework.frame_time
             self.x += BasicShooter(self, 'x')
@@ -43,7 +43,7 @@ class shooter:
             self.x += math.cos((self.angle + 45) * 3.14 / 180) * 0.7 * game_framework.frame_time
             self.y += math.sin((self.angle + 45) * 3.14 / 180) * 0.7 * game_framework.frame_time
             self.angle += 180 * game_framework.frame_time
-            pass
+
         elif self.type == 4: #폭죽
             self.speed -= 5 * game_framework.frame_time
             self.x += BasicShooter(self, 'x')
@@ -57,7 +57,6 @@ class shooter:
         elif self.type == 6:  # 직선
             self.x += BasicShooter(self, 'x')
             self.y += BasicShooter(self, 'y')
-            pass
 
         if self.x < 0 or self.x > 1000 or self.y < 0 or self.y > 600:
             game_world.remove_object(self)

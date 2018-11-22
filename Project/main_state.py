@@ -49,7 +49,7 @@ def enter():
     metronom = Metro()
     game_world.add_object(grass, 0)
     game_world.add_object(by, 2)
-    game_world.add_object(metronom,4)
+    game_world.add_object(metronom, 4)
     EnterTime = get_time()
     mapper()
     bulletRegister()
