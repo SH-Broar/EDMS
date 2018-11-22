@@ -44,19 +44,20 @@ class Metro:
 
 def enter():
     global by, BGM, metronom, EnterTime
-    by = boy.Boy()
+
     grass = Grass()
     metronom = Metro()
     game_world.add_object(grass, 0)
-    game_world.add_object(by, 2)
     game_world.add_object(metronom, 4)
-    EnterTime = get_time()
     mapper()
     bulletRegister()
     if BGM is None:
         BGM = Stage1_Bgm()
     else:
         BGM.bgm.repeat_play()
+    EnterTime = get_time()
+    by = boy.Boy()
+    game_world.add_object(by, 2)
 
 def bulletRegister():
     global bulletDict, bulletTime

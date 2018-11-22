@@ -232,7 +232,7 @@ class Boy:
         self.velocity = 0
         #
         self.MusicBpm = 0
-        self.C = 0
+        self.C = -0.5
         #
         self.keyDown = False
         self.teleportDir = 0
