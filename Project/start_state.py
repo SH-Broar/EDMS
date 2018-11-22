@@ -7,7 +7,7 @@ from pico2d import *
 name = "StartState"
 image = None
 white = None
-logo_time = 0.0
+logo_time = -1
 
 
 def enter():
@@ -24,7 +24,7 @@ def exit():
 def update():
     global logo_time
 
-    if logo_time > 2.0:
+    if logo_time > 3.0:
         logo_time = 0
         #game_framework.quit()
         game_framework.change_state(title_state)
@@ -37,7 +37,7 @@ def draw():
     global image, logo_time
     clear_canvas()
     white.draw(500,300)
-    image.opacify(math.sin(logo_time * 3.14 / 2))
+    image.opacify(clamp(0,math.sin(logo_time * 3.14 / 2),1))
     image.draw(500,300)
     update_canvas()
 
