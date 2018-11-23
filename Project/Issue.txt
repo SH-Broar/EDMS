@@ -1,5 +1,4 @@
-TODO : Opening Image
-	Particle
-	Game Over map
-
-Shooter Tool : for make shooting map automatically
+TODO :
+    Opening Image -> replacement for Tutorial, and it can switch by space key
+	Particle -> or effect that pop up on Maptile which player on
+	Game Over map -> and result is nessesary?
