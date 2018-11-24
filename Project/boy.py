@@ -47,7 +47,6 @@ class IdleState:
 
     @staticmethod
     def enter(boy, event):
-
         if event == Recursion:
             global Mapper
             boy.playerOnX = int((boy.x + 50) // 50)
@@ -63,7 +62,8 @@ class IdleState:
                         boy.y = i * 50
                         track = True
                 if track is False:
-                    #game_world.remove_object(boy)
+                    game_world.remove_object(boy)
+                    boy.gameOver = True
                     #gameover branch
                     pass
 
@@ -99,7 +99,8 @@ class RunState:
         boy.playerOnX = int((boy.x + 50) // 50)
         boy.playerOnY = int((boy.y + 25) // 50)
         if boy.playerOnX <= 0 or boy.playerOnX >= 21 or boy.playerOnY <= 0 or boy.playerOnY >= 13:
-            #game_world.remove_object(boy)
+            game_world.remove_object(boy)
+            boy.gameOver = True
             # gameover branch - state change
             pass
         if Mapper[(order-1) * 240 + (12 - boy.playerOnY) * 20 + boy.playerOnX-1] == 0:
@@ -111,7 +112,8 @@ class RunState:
                     boy.cur_state.enter(boy, IdleState)
                     track = True
             if track is False:
-                #game_world.remove_object(boy)
+                game_world.remove_object(boy)
+                boy.gameOver = True
                 #gameover branch
                 pass
 
@@ -226,6 +228,7 @@ class Boy:
         self.playerOnY = 5
         self.image = load_image('Player\\player.png')
         self.power = load_image('Player\\power.png')
+        self.gameOver = False
         # Boy is only once created, so instance image loading is fine
         self.font = load_font('ENCR10B.TTF',16)
         self.dir = 0

@@ -84,7 +84,6 @@ def update():
     global by
     for game_object in game_world.all_objects():
         game_object.update()
-    print(by.playerOnX, by.playerOnY)
     if by.playerOnX == 10 and by.playerOnY == 6:
         game_framework.change_state(main_state)
     pass

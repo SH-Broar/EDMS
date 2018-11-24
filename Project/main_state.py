@@ -17,7 +17,9 @@ name = "MainState"
 by = None
 BGM = None
 metronom = None
+
 TimeCut = []
+gameOverImage = None
 
 bulletDict = [[],[],[],[],[],[],[]]
 bulletTime = []
@@ -36,14 +38,28 @@ class Metro:
         self.image = load_image('Background\\shin.png')
 
     def update(self):
-        self.image.opacify(clamp(0,(90 - by.jumpHeight) / 112.5,0.8))
+        global by
+        if by.gameOver is False:
+            self.image.opacify(clamp(0,(90 - by.jumpHeight) / 112.5,0.8))
         pass
 
     def draw(self):
-        self.image.draw(500, 300)
+        if by.gameOver is False:
+            self.image.draw(500, 300)
+
+class GameOverImage:
+    def __init__(self):
+        self.image = load_image('Background\\gameOver.png')
+
+    def update(self):
+        pass
+
+    def draw(self):
+        if by.gameOver:
+            self.image.draw(500, 300)
 
 def enter():
-    global by, BGM, metronom, EnterTime
+    global by, BGM, metronom, EnterTime, gameOverImage
 
     grass = Grass()
     metronom = Metro()
@@ -58,6 +74,8 @@ def enter():
     EnterTime = get_time()
     by = boy.Boy()
     game_world.add_object(by, 2)
+    gameOverImage = GameOverImage()
+    game_world.add_object(gameOverImage, 4)
 
 def bulletRegister():
     global bulletDict, bulletTime
