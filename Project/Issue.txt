@@ -1,3 +1,2 @@
 TODO :
 	Particle -> or effect that pop up on Maptile which player on
-	Game Over map -> and result is nessesary?

@@ -2,10 +2,6 @@ import game_framework
 import main_state
 from pico2d import *
 
-import game_world
-from Blocks import Blocks
-import Openingboy
-
 name = "ClearState"
 
 BackgroundImage = None

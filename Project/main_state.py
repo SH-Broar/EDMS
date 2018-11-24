@@ -6,6 +6,8 @@ from pico2d import *
 import game_framework
 import game_world
 
+import reset_state
+
 import boy
 import BulletManager
 from shooter import shooter
@@ -152,8 +154,12 @@ def SpreadBullet():
     pass
 
 def exit():
-    global BGM
+    global BGM, bulletDict,bulletTime,bulletTimeIndex
     game_world.clear()
+    bulletDict = [[], [], [], [], [], [], []]
+    bulletTime = []
+    bulletTimeIndex = 0
+    boy.order = 0
     BGM = None
 
 def pause():
@@ -188,6 +194,8 @@ def handle_events():
             BulletManager.BM.numDown(event.key)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_s:
             BulletManager.saveBulletList()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_r and by.gameOver:
+            game_framework.change_state(reset_state)
         else:
             by.handle_event(event)
 
