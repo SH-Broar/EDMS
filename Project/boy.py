@@ -4,6 +4,7 @@ from ball import Ball
 
 import game_world
 import random
+import clear_state
 import math
 
 Mapper = []
@@ -302,8 +303,9 @@ class Boy:
 
         if self.C > 1156.6:
             self.MusicBpm = 103
-        if self.C > 1220:
+        if self.C > 1220.5:
             #game clear branch
+            game_framework.change_state(clear_state)
             pass
 
 
