@@ -71,7 +71,8 @@ class BM:
         preMy = my
         if (Hold == False):
             stoped = True
-            inTime = get_time()
+            inTime = get_time() - main_state.EnterTime
+            print(get_time(),main_state.EnterTime,inTime)
             main_state.BGM.bgm.pause()
         bullets = shooter(2, 1, preMx, preMy, 0, 0, 6)
         game_world.add_object(bullets,3)
@@ -148,7 +149,7 @@ class BM:
         BM.fileDecoder()
 
         if (Hold is False):
-            main_state.EnterTime += (get_time() - inTime)
+            main_state.EnterTime = (get_time() - inTime)
 
         for i in range(0,income):
             if (mx > preMx):
