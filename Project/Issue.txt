@@ -1,2 +1,1 @@
 TODO :
-	Particle -> or effect that pop up on Maptile which player on

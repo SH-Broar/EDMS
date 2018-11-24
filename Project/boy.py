@@ -48,6 +48,7 @@ class IdleState:
 
     @staticmethod
     def enter(boy, event):
+        boy.animTick = 0
         if event == Recursion:
             global Mapper
             boy.playerOnX = int((boy.x + 50) // 50)
@@ -90,6 +91,10 @@ class IdleState:
         boy.image.rotate_draw(boy.angle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 50, 50)
         if boy.keyDown:
             boy.power.rotate_draw(-boy.frame* 3.14 / 360,boy.x, boy.y + boy.jumpHeight, 120, 120)
+        if boy.animTick < 3:
+            boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192,
+                                     25 + (boy.playerOnX-1) * 50, 25 + (boy.playerOnY-1) * 50)
+            pass
 
 
 class RunState:
@@ -97,6 +102,7 @@ class RunState:
     @staticmethod
     def enter(boy, event):
         global Mapper
+        boy.animTick = 0
         boy.playerOnX = int((boy.x + 50) // 50)
         boy.playerOnY = int((boy.y + 25) // 50)
         if boy.playerOnX <= 0 or boy.playerOnX >= 21 or boy.playerOnY <= 0 or boy.playerOnY >= 13:
@@ -210,6 +216,10 @@ class RunState:
         boy.image.rotate_draw(boy.angle * 3.14 / 180, boy.x, boy.y + boy.jumpHeight, 50, 50)
         if boy.keyDown:
             boy.power.rotate_draw(-boy.bangle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 120, 120)
+        if boy.animTick < 3:
+            boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192,
+                                     25 + (boy.playerOnX-1) * 50, 25 + (boy.playerOnY-1) * 50)
+            pass
 
 
 next_state_table = {
@@ -229,6 +239,8 @@ class Boy:
         self.playerOnY = 5
         self.image = load_image('Player\\player.png')
         self.power = load_image('Player\\power.png')
+        self.animImage = load_image('anim\\step192_.png')
+        self.animTick = 0
         self.gameOver = False
         # Boy is only once created, so instance image loading is fine
         self.font = load_font('ENCR10B.TTF',16)
@@ -261,6 +273,7 @@ class Boy:
 
     def update(self):
         self.C += 10*game_framework.frame_time
+        self.animTick += 20*game_framework.frame_time
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
@@ -305,13 +318,14 @@ class Boy:
             self.MusicBpm = 103
         if self.C > 1220.5:
             #game clear branch
-            game_framework.change_state(clear_state)
+            if self.gameOver is False:
+                game_framework.change_state(clear_state)
             pass
 
 
     def draw(self):
         self.cur_state.draw(self)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 25, self.y - 25 + self.jumpHeight, self.x + 25, self.y + 25 + self.jumpHeight

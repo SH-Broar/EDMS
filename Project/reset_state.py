@@ -8,8 +8,10 @@ def enter():
     game_framework.change_state(main_state)
     pass
 
+
 def exit():
     pass
+
 
 def handle_events():
     pass
