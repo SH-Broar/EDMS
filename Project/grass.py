@@ -11,5 +11,6 @@ class Grass:
         pass
 
     def draw(self):
-        self.image.draw(0 - self.x,300,800,800)
-        self.image.draw(800 - self.x, 300, 800, 800)
+        self.image.draw(400 - self.x,300,800,800)
+        self.image.draw(1200 - self.x, 300, 800, 800)
+        self.image.draw(2000 - self.x, 300, 800, 800)
