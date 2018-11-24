@@ -49,6 +49,8 @@ class IdleState:
     @staticmethod
     def enter(boy, event):
         boy.animTick = 0
+        boy.animX = boy.x
+        boy.animY = boy.y - 25
         if event == Recursion:
             global Mapper
             boy.playerOnX = int((boy.x + 50) // 50)
@@ -92,8 +94,7 @@ class IdleState:
         if boy.keyDown:
             boy.power.rotate_draw(-boy.frame* 3.14 / 360,boy.x, boy.y + boy.jumpHeight, 120, 120)
         if boy.animTick < 3:
-            boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192,
-                                     25 + (boy.playerOnX-1) * 50, 25 + (boy.playerOnY-1) * 50)
+            boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192, boy.animX, boy.animY)
             pass
 
 
@@ -103,6 +104,8 @@ class RunState:
     def enter(boy, event):
         global Mapper
         boy.animTick = 0
+        boy.animX = boy.x
+        boy.animY = boy.y - 25
         boy.playerOnX = int((boy.x + 50) // 50)
         boy.playerOnY = int((boy.y + 25) // 50)
         if boy.playerOnX <= 0 or boy.playerOnX >= 21 or boy.playerOnY <= 0 or boy.playerOnY >= 13:
@@ -217,8 +220,7 @@ class RunState:
         if boy.keyDown:
             boy.power.rotate_draw(-boy.bangle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 120, 120)
         if boy.animTick < 3:
-            boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192,
-                                     25 + (boy.playerOnX-1) * 50, 25 + (boy.playerOnY-1) * 50)
+            boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192, boy.animX, boy.animY)
             pass
 
 
@@ -239,6 +241,8 @@ class Boy:
         self.playerOnY = 5
         self.image = load_image('Player\\player.png')
         self.power = load_image('Player\\power.png')
+        self.animX = 0
+        self.animY = 0
         self.animImage = load_image('anim\\step192_.png')
         self.animTick = 0
         self.gameOver = False
@@ -247,7 +251,7 @@ class Boy:
         self.dir = 0
         self.velocity = 0
         #
-        self.MusicBpm = 0
+        self.MusicBpm = 100000
         self.C = -0.5
         #
         self.keyDown = False
