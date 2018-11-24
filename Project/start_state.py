@@ -7,14 +7,18 @@ from pico2d import *
 name = "StartState"
 image = None
 white = None
+
+image2 = None
+image3 = None
 logo_time = -1
 
 
 def enter():
-    global  image,white
+    global  image,white,image2,image3
     image = load_image('logo.png')
     white = load_image('white.png')
-
+    image2 = load_image('Opening\\1st.png')
+    image3 = load_image('Opening\\2nd.png')
 
 def exit():
     global image
@@ -24,7 +28,7 @@ def exit():
 def update():
     global logo_time
 
-    if logo_time > 3.0:
+    if logo_time > 9.0:
         logo_time = 0
         #game_framework.quit()
         game_framework.change_state(title_state)
@@ -34,11 +38,19 @@ def update():
 
 
 def draw():
-    global image, logo_time
+    global image, logo_time, image2,image3
     clear_canvas()
     white.draw(500,300)
-    image.opacify(clamp(0,math.sin(logo_time * 3.14 / 2),1))
-    image.draw(500,300)
+
+    if (logo_time < 3.0):
+        image.opacify(clamp(0,math.sin(logo_time * 3.14 / 2),1))
+        image.draw(500,300)
+    elif(logo_time < 6.0):
+        image2.opacify(clamp(0, math.sin((logo_time-3) * 3.14 / 2)*3, 1))
+        image2.draw(500, 300)
+    elif (logo_time < 9.0):
+        image3.opacify(clamp(0, math.sin((logo_time - 6) * 3.14 / 2)*3, 1))
+        image3.draw(500, 300)
     update_canvas()
 
 
