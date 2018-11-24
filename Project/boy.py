@@ -251,7 +251,7 @@ class Boy:
         self.dir = 0
         self.velocity = 0
         #
-        self.MusicBpm = 100000
+        self.MusicBpm = 0
         self.C = -0.5
         #
         self.keyDown = False
