@@ -6,7 +6,18 @@ import game_world
 import random
 import math
 
-Mapper = []
+Mapper = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+       0,0,0,0,0,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,
+       0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,
+       0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,
+       0,0,0,0,0,1,0,0,0,3,3,3,0,0,1,0,0,0,0,0,
+       0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+       0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+       0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+       1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 order = 0
 
 # Boy Run Speed
@@ -217,13 +228,12 @@ next_state_table = {
 }
 
 class Boy:
-
     def __init__(self):
-        self.x, self.y = 25 + 9*50, 60 + 5*50
+        self.x, self.y = 25 + 18*50, 60 + 5*50
         self.exX = 0
         self.exY = 0
-        self.playerOnX = 9
-        self.playerOnY = 5
+        self.playerOnX = 18
+        self.playerOnY = 9
         self.image = load_image('Player\\player.png')
         self.power = load_image('Player\\power.png')
         # Boy is only once created, so instance image loading is fine
@@ -231,7 +241,7 @@ class Boy:
         self.dir = 0
         self.velocity = 0
         #
-        self.MusicBpm = 0
+        self.MusicBpm = 126
         self.C = -0.5
         #
         self.keyDown = False
@@ -263,45 +273,6 @@ class Boy:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
-
-        if self.C > 8.7:
-            self.MusicBpm = 204.8
-        if self.C > 11.7:
-            self.MusicBpm = 102.4
-        if self.C > 105.3:
-            self.MusicBpm = 204.8
-
-        if self.C > 175.6:
-            self.MusicBpm = 102.4
-        if self.C > 199.0:
-            self.MusicBpm = 204.8
-
-        if self.C > 421.4:
-            self.MusicBpm = 102.4
-        if self.C > 433.1:
-            self.MusicBpm = 204.8
-
-        if self.C > 573.6:
-            self.MusicBpm = 102.5
-        if self.C > 608.7:   # 1분 0.87초
-            self.MusicBpm = 103
-        if self.C > 620.4:
-            self.MusicBpm = 206
-
-        if self.C > 900.0:
-            self.MusicBpm = 154.5
-        if self.C > 917.4:
-            self.MusicBpm = 206
-        if self.C > 923.3:
-            self.MusicBpm = 154.5
-        if self.C > 940.7:
-            self.MusicBpm = 206
-
-        if self.C > 1156.6:
-            self.MusicBpm = 103
-        if self.C > 1220:
-            #game clear branch
-            pass
 
 
     def draw(self):

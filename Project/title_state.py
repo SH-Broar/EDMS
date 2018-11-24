@@ -37,14 +37,18 @@ def enter():
 
     by = Openingboy.Boy()
     game_world.add_object(by, 2)
+    MakeMap()
     if BGM is None:
         BGM = Stage0_Bgm()
     else:
         BGM.bgm.repeat_play()
 
 def exit():
-    global BackgroundImage
+    global BackgroundImage,by
     del BackgroundImage
+    del by
+    game_world.remove_object_by_line(1)
+    game_world.remove_object_by_line(2)
 
 def MakeMap():
     for yLine in range(0, 12):
@@ -77,7 +81,12 @@ def draw():
 
 
 def update():
-    MakeMap()
+    global by
+    for game_object in game_world.all_objects():
+        game_object.update()
+    print(by.playerOnX, by.playerOnY)
+    if by.playerOnX == 10 and by.playerOnY == 6:
+        game_framework.change_state(main_state)
     pass
 
 
