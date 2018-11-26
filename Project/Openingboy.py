@@ -274,6 +274,7 @@ class Boy:
 
     def update(self):
         self.C += 10*game_framework.frame_time
+        self.animTick += 20 * game_framework.frame_time
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
