@@ -267,10 +267,20 @@ class Boy:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 
+        self.eat_sound = load_wav('hit.wav')
+        self.eat_sound.set_volume(50)
+        self.HP = 0
+
     def fire_ball(self):
-        ball = Ball(800,200)
-        game_world.add_object(ball,1)
+
         pass
+
+    def eat(self):
+        self.eat_sound.play()
+        self.HP += 1
+        if (self.HP > 100):
+            game_world.remove_object(self)
+            self.gameOver = True
 
     def add_event(self, event):
         self.event_que.insert(0, event)

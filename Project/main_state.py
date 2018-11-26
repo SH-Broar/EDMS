@@ -38,15 +38,17 @@ class Stage1_Bgm:
 class Metro:
     def __init__(self):
         self.image = load_image('Background\\shin.png')
-
+        self.white = load_image('Background\\shin white.png')
     def update(self):
         global by
         if by.gameOver is False:
-            self.image.opacify(clamp(0,(90 - by.jumpHeight) / 112.5,0.8))
+            self.image.opacify(clamp(0,((90 - by.jumpHeight) / 112.5 )* (0.01 + by.HP*0.006 ),0.01 + by.HP*0.006))
+            self.white.opacify(clamp(0, ((90 - by.jumpHeight) / 112.5)*(0.5 - by.HP*0.005), 0.5 - by.HP*0.005))
         pass
 
     def draw(self):
         if by.gameOver is False:
+            self.white.draw(500, 300)
             self.image.draw(500, 300)
 
 class GameOverImage:
@@ -201,6 +203,7 @@ def handle_events():
 
 
 def update():
+    global by
     if BulletManager.stoped:
         pass
     else:
@@ -210,9 +213,10 @@ def update():
             game_object.update()
         for game_object in game_world.object_in_line(3):
             if game_world.collide(game_object,by) == True:
-                game_world.remove_object(game_object)
-                #game over branch
-                pass
+                if (by.gameOver is False):
+                    game_world.remove_object(game_object)
+                    by.eat()
+                    pass
 
 
 
