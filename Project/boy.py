@@ -264,7 +264,7 @@ class Boy:
         self.prevTime = 0
         self.event_que = []
         self.cur_state = IdleState
-        self.cur_state.enter(self, None)
+        self.cur_state.enter(self, IdleState)
 
         self.eat_sound = load_wav('hit.wav')
         self.eat_sound.set_volume(50)
