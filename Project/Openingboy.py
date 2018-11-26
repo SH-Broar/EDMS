@@ -1,6 +1,5 @@
 import game_framework
 from pico2d import *
-from ball import Ball
 
 import game_world
 import random
@@ -269,11 +268,6 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-
-    def fire_ball(self):
-        ball = Ball(800,200)
-        game_world.add_object(ball,1)
-        pass
 
     def add_event(self, event):
         self.event_que.insert(0, event)

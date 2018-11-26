@@ -1,6 +1,5 @@
 import game_framework
 from pico2d import *
-from ball import Ball
 
 import game_world
 import random
@@ -270,10 +269,6 @@ class Boy:
         self.eat_sound = load_wav('hit.wav')
         self.eat_sound.set_volume(50)
         self.HP = 0
-
-    def fire_ball(self):
-
-        pass
 
     def eat(self):
         self.eat_sound.play()
