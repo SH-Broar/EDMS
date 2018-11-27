@@ -225,9 +225,3 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-
-
-
-
