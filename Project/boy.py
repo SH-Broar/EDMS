@@ -184,7 +184,7 @@ class RunState:
     def do(boy):
         boy.frame = (boy.frame + (180 * (boy.MusicBpm / 60) * game_framework.frame_time))
         if boy.spinned_angle < 90 or boy. spinned_angle > 270:
-            boy.angle = (boy.angle - (90 * (boy.MusicBpm / 60) * game_framework.frame_time) * (1 if boy.dir == 2 else -1 if boy.dir == -2 else boy.dir)) % 360
+            boy.real_angle = (boy.real_angle - (90 * (boy.MusicBpm / 60) * game_framework.frame_time) * (1 if boy.dir == 2 else -1 if boy.dir == -2 else boy.dir)) % 360
             boy.spinned_angle = (boy.spinned_angle + (90 * (boy.MusicBpm / 60) * game_framework.frame_time) * (1 if boy.dir == 2 else -1 if boy.dir == -2 else boy.dir)) % 360
         if boy.frame >= 180:
             boy.frame = boy.frame % 180
@@ -195,8 +195,8 @@ class RunState:
         #{
             boy.exX = boy.x
             boy.exY = boy.y
-            boy.angle = boy.angle - 45
-            boy.angle = boy.angle - (boy.angle % 90) + 90
+            boy.real_angle = boy.real_angle - 45
+            boy.real_angle = boy.real_angle - (boy.real_angle % 90) + 90
             boy.dir = 0
             boy.spinned_angle = 0
 
@@ -258,8 +258,8 @@ class Boy:
         self.CtrlDown = 1
         self.frame = 0      #점프용
         self.jumpHeight = 0
-        self.bangle = 0
-        self.angle = 0
+        self.spinned_angle = 0
+        self.real_angle = 0
         #
         self.prevTime = 0
         self.event_que = []
