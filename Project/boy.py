@@ -89,7 +89,7 @@ class IdleState:
 
     @staticmethod
     def draw(boy):
-        boy.image.rotate_draw(boy.angle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 50, 50)
+        boy.image.rotate_draw(boy.real_angle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 50, 50)
         if boy.keyDown:
             boy.power.rotate_draw(-boy.frame* 3.14 / 360,boy.x, boy.y + boy.jumpHeight, 120, 120)
         if boy.animTick < 3:
@@ -215,9 +215,9 @@ class RunState:
 
     @staticmethod
     def draw(boy):
-        boy.image.rotate_draw(boy.angle * 3.14 / 180, boy.x, boy.y + boy.jumpHeight, 50, 50)
+        boy.image.rotate_draw(boy.real_angle * 3.14 / 180, boy.x, boy.y + boy.jumpHeight, 50, 50)
         if boy.keyDown:
-            boy.power.rotate_draw(-boy.bangle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 120, 120)
+            boy.power.rotate_draw(-boy.real_angle* 3.14 / 180,boy.x, boy.y + boy.jumpHeight, 120, 120)
         if boy.animTick < 3:
             boy.animImage.clip_draw(192 * int(boy.animTick), 0, 192, 192, boy.animX, boy.animY)
             pass
