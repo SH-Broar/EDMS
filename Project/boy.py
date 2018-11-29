@@ -133,9 +133,9 @@ class RunState:
                 else:
                     boy.CtrlDown = 1
                 boy.dir = 1
-                boy.bangle = 0
+                boy.spinned_angle = 0
                 boy.exX = boy.x
-            elif boy.bangle is 0:
+            elif boy.spinned_angle is 0:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
         elif event == LEFT_DOWN:
@@ -145,9 +145,9 @@ class RunState:
                 else:
                     boy.CtrlDown = 1
                 boy.dir = -1
-                boy.bangle = 0
+                boy.spinned_angle = 0
                 boy.exX = boy.x
-            elif boy.bangle is 0:
+            elif boy.spinned_angle is 0:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
         elif event == UP_DOWN:
@@ -157,9 +157,9 @@ class RunState:
                 else:
                     boy.CtrlDown = 1
                 boy.dir = 2
-                boy.bangle = 0
+                boy.spinned_angle = 0
                 boy.exY = boy.y
-            elif boy.bangle is 0:
+            elif boy.spinned_angle is 0:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
         elif event == DOWN_DOWN:
@@ -169,9 +169,9 @@ class RunState:
                 else:
                     boy.CtrlDown = 10
                 boy.dir = -2
-                boy.bangle = 0
+                boy.spinned_angle = 0
                 boy.exY = boy.y
-            elif boy.bangle is 0:
+            elif boy.spinned_angle is 0:
                 boy.cur_state = IdleState
                 boy.cur_state.enter(boy, TimeUp)
 
@@ -183,34 +183,34 @@ class RunState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + (180 * (boy.MusicBpm / 60) * game_framework.frame_time))
-        if boy.bangle < 90 or boy. bangle > 270:
+        if boy.spinned_angle < 90 or boy. spinned_angle > 270:
             boy.angle = (boy.angle - (90 * (boy.MusicBpm / 60) * game_framework.frame_time) * (1 if boy.dir == 2 else -1 if boy.dir == -2 else boy.dir)) % 360
-            boy.bangle = (boy.bangle + (90 * (boy.MusicBpm / 60) * game_framework.frame_time) * (1 if boy.dir == 2 else -1 if boy.dir == -2 else boy.dir)) % 360
+            boy.spinned_angle = (boy.spinned_angle + (90 * (boy.MusicBpm / 60) * game_framework.frame_time) * (1 if boy.dir == 2 else -1 if boy.dir == -2 else boy.dir)) % 360
         if boy.frame >= 180:
             boy.frame = boy.frame % 180
             boy.cur_state.enter(boy, Recursion)
         boy.jumpHeight = math.sin(boy.frame * 3.14 / 180) * 90
 
-        if boy.bangle > 90 and boy.bangle < 270: # end
+        if boy.spinned_angle > 90 and boy.spinned_angle < 270: # end
         #{
             boy.exX = boy.x
             boy.exY = boy.y
             boy.angle = boy.angle - 45
             boy.angle = boy.angle - (boy.angle % 90) + 90
             boy.dir = 0
-            boy.bangle = 0
+            boy.spinned_angle = 0
 
             boy.cur_state = IdleState
             boy.cur_state.enter(boy,TimeUp)
         #}
         if boy.dir == 1:
-            boy.x = boy.exX + boy.bangle / 90 * 51 * boy.CtrlDown
+            boy.x = boy.exX + boy.spinned_angle / 90 * 51 * boy.CtrlDown
         elif boy.dir == -1:
-            boy.x = boy.exX - (360 - boy.bangle) / 90 * 51 * boy.CtrlDown
+            boy.x = boy.exX - (360 - boy.spinned_angle) / 90 * 51 * boy.CtrlDown
         elif boy.dir == 2:
-            boy.y = boy.exY + boy.bangle / 90 * 51
+            boy.y = boy.exY + boy.spinned_angle / 90 * 51
         elif boy.dir == -2:
-            boy.y = boy.exY - (360 - boy.bangle) / 90 * 51
+            boy.y = boy.exY - (360 - boy.spinned_angle) / 90 * 51
 
 
     @staticmethod
