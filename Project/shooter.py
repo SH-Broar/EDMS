@@ -54,9 +54,6 @@ class shooter:
             self.speed -= 2 * game_framework.frame_time
             self.x += BasicShooter(self, 'x')
             self.y += BasicShooter(self, 'y')
-        elif self.type == 6:  # 직선
-            self.x += BasicShooter(self, 'x')
-            self.y += BasicShooter(self, 'y')
 
         if self.x < 0 or self.x > 1000 or self.y < 0 or self.y > 600:
             game_world.remove_object(self)
