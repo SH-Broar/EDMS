@@ -10,15 +10,26 @@ white = None
 
 image2 = None
 image3 = None
+
+BGM = None
 logo_time = -1
 
+class Stage_1_Bgm:
+    def __init__(self):
+        self.bgm = load_music("FX.mp3")
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
 
 def enter():
-    global  image,white,image2,image3
+    global  image,white,image2,image3, BGM
     image = load_image('logo.png')
     white = load_image('white.png')
     image2 = load_image('Opening\\1st.png')
     image3 = load_image('Opening\\2nd.png')
+    if BGM is None:
+        BGM = Stage_1_Bgm()
+    else:
+        BGM.bgm.play()
 
 def exit():
     global image
@@ -26,8 +37,11 @@ def exit():
 
 
 def update():
-    global logo_time
+    global logo_time, BGM
 
+    if logo_time > 3.0:
+        if BGM:
+            BGM = None
     if logo_time > 11.0:
         logo_time = 0
         #game_framework.quit()
